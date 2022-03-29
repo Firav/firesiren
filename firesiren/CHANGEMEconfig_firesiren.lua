@@ -27,7 +27,11 @@ local config = {
 		
 		{Label = 'Fort Zancudo', Name = 'fz', Loc = vector3(-2095.92, 2830.22, 32.96), Radius = 1000, Siren = 'siren2'},
 		{Label = 'LSIA', Name = 'lsia', Loc = vector3(-1068.74, -2379.96, 14.05), Radius = 500, Siren = 'siren2'},
-	},	
+	},
+
+	fireTones = {
+		{tone = 'fire', station = 'ss'},
+	},
 	
 	-- values in the calls "CODE" that trigger the fire siren 
     fireCalls = {
@@ -37,9 +41,10 @@ local config = {
 		{code = '10-89: Bomb Threat'},
 	},	
 	
-	addCallNote = true, -- wether or not to add a note to the call	
+	addCallNote = true, -- whether or not to add a note to the call
 	callNoteMessage = "Station Fire Siren Triggered", -- the note that is added to the call	
-	callNoteStation = true, -- add the fire siren name to the front of the note, example: "Sandy Shores Station Fire Siren Triggered"	
+	callNoteStation = true, -- add the fire siren name to the front of the note, example: "Sandy Shores Station Fire Siren Triggered"
+	pagerTones = false, -- whether or not linked pagers/tones are tripped with the fireSirens
 }
 
 
