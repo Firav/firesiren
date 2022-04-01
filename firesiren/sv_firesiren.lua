@@ -103,15 +103,27 @@ CreateThread(function() Config.LoadPlugin("firesiren", function(pluginConfig)
 								end		
 							end
 
-							local pairedTones = {}
-							local ToBePaged = {}
+							if (pluginConfig.pagerTones) then
+								local pairedTones = {}
+								local ToBePaged = {}
 
-							for k,v in pairs(pluginConfig.fireTones) do
-								if v.station:lower() == closestSiren.Name:lower() then
-									pairedTones = v
-									debugLog("Stored pager: " .. pairedTones.tone)
-									table.insert(ToBePaged, pairedTones.tone)
+								for k,v in pairs(pluginConfig.fireTones) do
+									if v.station:lower() == closestSiren.Name:lower() then
+										pairedTones = v
+										debugLog("Stored pager: " .. pairedTones.tone)
+										table.insert(ToBePaged, pairedTones.tone)
+									end
 								end
+
+								local PageDetails = {}
+								table.insert(PageDetails, l.code:upper())
+								table.insert(PageDetails, "(" .. l.title:upper() .. ")")
+								table.insert(PageDetails, "[" .. l.priority .. "]")
+								table.insert(PageDetails, "-- (" .. l.postal .. ") ")
+								table.insert(PageDetails, l.address:upper())
+								table.insert(PageDetails, " - " .. l.description:upper())
+
+								TriggerEvent('Fire-EMS-Pager:PageTones', ToBePaged, true, PageDetails)
 							end
 							
 							local ToBeSirened = {}
@@ -121,13 +133,6 @@ CreateThread(function() Config.LoadPlugin("firesiren", function(pluginConfig)
 							ValidStation.Siren = closestSiren.Siren
 							ValidStation.Radius = closestSiren.Radius
 							table.insert(ToBeSirened, ValidStation)
-
-							local PageDetails = {}
-							table.insert(PageDetails, l.code)
-							table.insert(PageDetails, "(" .. l.priority .. ")")
-							table.insert(PageDetails, "-- (" .. l.postal .. ") ")
-							table.insert(PageDetails, l.address)
-							table.insert(PageDetails, " - " .. l.description)
 							
 							for _, Station in ipairs(ToBeSirened) do
 								TriggerEvent('Fire-EMS-Pager:StoreSiren', Station)
@@ -135,7 +140,6 @@ CreateThread(function() Config.LoadPlugin("firesiren", function(pluginConfig)
 							end
 							Wait(2000)										
 							TriggerEvent('Fire-EMS-Pager:SoundSirens', ToBeSirened)
-							TriggerEvent('Fire-EMS-Pager:PageTones', ToBePaged, true, PageDetails)
 							
 							if pluginConfig.addCallNote then
 								callNote = pluginConfig.callNoteMessage
