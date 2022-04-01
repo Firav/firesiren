@@ -28,9 +28,20 @@ local config = {
 		{Label = 'Fort Zancudo', Name = 'fz', Loc = vector3(-2095.92, 2830.22, 32.96), Radius = 1000, Siren = 'siren2'},
 		{Label = 'LSIA', Name = 'lsia', Loc = vector3(-1068.74, -2379.96, 14.05), Radius = 500, Siren = 'siren2'},
 	},
-
+	-- this section links your stations with tones. you can outline multiple tones for the same station. such as 'fire' and 'medical' for davis(sls).
 	fireTones = {
+		{tone = 'fire', station = 'pb'},
 		{tone = 'fire', station = 'ss'},
+
+		{tone = 'fire', station = 'sls'},
+		{tone = 'medical', station = 'sls'},
+		{tone = 'fire', station = 'rh'},
+		{tone = 'rescue', station = 'rh'},
+		{tone = 'fire', station = 'els'},
+		{tone = 'fire', station = 'dpb'},
+
+		{tone = 'other', station = 'fz'},
+		{tone = 'other', station = 'lsia'},
 	},
 	
 	-- values in the calls "CODE" that trigger the fire siren 
